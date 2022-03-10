@@ -1,0 +1,88 @@
+
+
+
+
+
+ping
+file
+copy
+template
+yum
+service
+command
+shell
+user
+group
+lineinfile
+get_url
+git
+
+
+
+to check syntax:
+
+    ansible-playbook playbook.yaml --syntax-check
+--------------------
+to do dry-run:   
+     ansible-playbook playbook.yaml --check
+-------------------------------------
+to list out all the tasks in the playbook:
+     ansible-playbook playbook.yaml --list-tasks
+------------------------------------
+to run playbook interactively:
+     ansible-playbook playbook.yaml --step
+--------------------------------------------
+to start from particular task:   
+  ansible-playbook playbook.yaml --start-at-task="creating file"
+----------------------------------------------
+tags: to group the tasks logically
+
+      to run particular tag related task:
+
+     ansible-playbook playbook.yaml --tags app
+-------------------------------
+to run multiple tags:
+    ansible-playbook playbook.yaml --tags app,db
+--------------------------------------
+to skip particular tags:
+    ansible-playbook playbook.yaml --skip-tags db
+
+
+
+
+
+
+task:
+1) how to ignore warning messages
+2) how to ignore python warning messages
+
+3) dev - h1,h2,h3,h4,h5
+
+1  h1,h2,h3-if it unreachable,h4,h5
+   h1,h2,h3-if task is failed,h4,h5
+2  
+3
+4
+5
+6
+7
+8
+9
+10
+
+
+4) how to change the strategy?
+
+
+
+
+
+
+
+
+
+
+
+
+
+

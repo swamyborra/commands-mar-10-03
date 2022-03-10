@@ -1,0 +1,5 @@
+ docker host : where docker engine is installed that machine is called as dockerhost
+
+docker image: os snapshot(bundle) is called as docker image, with this images we can build our container.
+
+docker container: running instance of the os is called as container.

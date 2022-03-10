@@ -1,0 +1,153 @@
+ docker host : where docker engine is installed that machine is called as dockerhost
+
+docker image: os snapshot(bundle) is called as docker image, with this images we can build our container.
+
+docker container: running instance of the os is called as container.
+
+docker hub: where official images will be available ( it is called as registry) 
+
+customized image: we can create our own images with custom settings for your applications.
+     advantages:
+              1) backup purpous
+              2) recreation of different environments
+
+
+
+
+
+docker run -dit imagename    >> to create container
+
+  -- name   >> to provide name to container
+   -p dockerhostport:containerport    >> port forward     
+   
+
+docker images     >> to check images
+
+docker ps     >> to check running containers
+
+
+docker ps -a     >> will show including stopped and running container
+
+docker stop containerid/name    >> to stop container
+       start/restart            >> to start/restart container
+
+docker stats    >> to check container stats
+
+docker exec -it containerid/name    >> to login to running container
+
+
+docker commit containerid repositoryname/imagename     >> to create image from running container 
+
+
+
+docker login     >> to login to docker registry
+
+docker push imagename    >> to push images into docker registry
+
+docker pull imagename   >> download images from rgistry
+
+docker search keyword   >> you can search all images with this keyword
+
+
+docker rm containerd/name      >> to remove docker container
+
+docker rmi imagename    >> to remove docker images
+---------------------------------------------------------
+
+Docker file instructions:
+
+FROM: It is to take the base image 
+RUN: It is to run any linux commands in intermediate container
+ADD & COPY: ADD & COPY both are to copy the files into docker image
+            but ADD is little adavanced like we can copy the content from internet
+            and if you copy zip files with ADD it is automatically extracted
+
+MAINTAINER: It is to provide application version (author information)
+EXPOSE: It is just for documentation purpose. It won't open any ports to the containers.
+VOLUME: It is to make sure that volume gets created while creating container even 
+        without -v option.
+CMD: this instruction is used to run the initial command
+     at container run time(start time/create time)
+     ex:  CMD httpd -k start 
+     when you create and image with docker file the above CMD instruction will be added to
+     image and while creating container "httpd -k start" will be executed so
+     application will be auto started.
+    
+ENTRYPOINT:
+ 
+            this instruction is used to run the initial command
+     at container run time(start time/create time)
+     ex:  ENTRYPOINT httpd -k start 
+     when you create an image with docker file the above ENTRYPOINT instruction will be added to
+     image and while creating container "httpd -k start" will be executed so
+     application will be auto started.
+ENV: 
+ARG:
+WORKDIR: By using this we can make any folder as the present working directory.
+USER: If you want to login as any user into conatiner (ex: amar ) USER instruction will be used
+ 
+
+
+FROM komljen/ubuntu
+MAINTAINER Alen Komljen <alen.komljen@live.com>
+
+RUN \
+  apt-get update && \
+  apt-get -y install \
+          apache2 && \
+  rm /var/www/html/index.html && \
+  rm -rf /var/lib/apt/lists/*
+
+FROM komljen/ubuntu
+MAINTAINER Alen Komljen <alen.komljen@live.com>
+RUN apt-get update 
+RUN apt-get -y install apache2
+RUN rm /var/www/html/index.html
+RUN rm -rf /var/lib/apt/lists/*
+
+task:
+how to provide access to normal users for docker commands
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,143 @@
+1. The given file is empty or not?
+vi empty.sh
+
+#!/bin/bash
+if [ -s $1 ]
+then 
+echo "size greater than 0 and non empty file"
+else 
+echo "Empty file"
+fi
+
+chmod +x empty.sh
+
+./empty.sh empty     (have created this file with name empty ,no data in it)
+output: Empty file
+./empty.sh file4Y
+output : size greater than 0 and non empty file        (with some data in this file4Y )
+
+
+2.The given input is directory or not
+vi directory.sh
+
+#!/bin/bash
+if[ -d $1 ]
+then 
+echo "its a directory"
+else 
+echo "its not a directory"
+fi
+
+chmod +x directory.sh
+
+./directory.sh  folder1
+output :its a directory
+
+./directory.sh file1
+output :its not a directory
+
+
+
+
+
+3.The given input is empty directory or not
+
+vi emptydir.sh
+
+#!/bin/bash
+
+if [ "$(ls -A $1)" ]
+then
+echo "Non empty directory"
+else
+echo "Empty directory"
+fi
+
+chmod +x emptydir.sh
+
+./emptydir.sh folder1
+Non empty directory
+
+./emptydir.sh test
+Empty directory
+
+
+
+
+
+
+4.how to make sure that argument is passed
+-z=length of string=0
+
+vi arument.sh 
+
+#!/bin/bash
+set -x
+
+if [ -z $1 ]
+then
+echo "please provide the positional parameter"
+exit
+else
+echo "positional parameter passed proceding further"
+fi
+
+chmod +x argument.sh
+
+./argument.sh 
+output :Please provide the positional parameter
+./argument.sh shraddha
+output:positional parameter passed proceding further
+
+
+5.The given file is readble by me or not
+vi readable.sh
+
+shell script
+#!/bin/bash
+if [ -r $1 ]
+then 
+echo "File is  readable by me"
+else
+echo "file is not readable by me"
+fi
+
+chmod +x readable.sh
+
+./readable.sh file4Y
+output: file readable by me
+
+
+6.The given file is writeable by me or not?
+vi writable.sh
+
+#!/bin/bash
+if [ -w $1 ]
+then 
+echo "File is writable by me"
+else
+echo "file is not writable by me"
+fi
+
+chmod +x writable.sh
+
+./writable.sh file4Y
+output: file writable by me
+
+7.The given file is executable by me or not?
+vi executable.sh
+
+#!/bin/bash
+if [ -x $1 ]
+then 
+echo "File is executable"
+else
+echo "File is not executable"
+fi
+
+chmod +x executable.sh
+  
+./executable.sh file4Y
+output: file is not executable
+./executable.sh sample.sh
+outpu: file is executable

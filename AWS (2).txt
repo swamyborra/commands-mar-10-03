@@ -1,0 +1,51 @@
+IAAS- Infrastructure as a service
+PAAS- Platform as a service
+SAAS- Software as a service
+
+EC2
+EFS
+S3
+VPC
+IAM
+CLOUD WATCH
+AUTO SCALING
+LOAD BALANCER
+ROUTE 53
+SNS
+EBS
+ECR
+
+ec2: elastic cloud computing
+
+ec2 service types:
+ondemand : no commitment from customer ( any number of days ican use ec2)
+           costly when compare to other types.
+reserved: here its lease agrement (1 years, 2 years) 
+spot : no commitment from anybody ( cheep cost) 
+
+
+
+Steps involved in EC2 instance creation:
+
+login to aws dashboard >> services >> choose ec2 >> launch instance
+
+1) choose AMI ( amazon machine image i.e iso image) 
+
+2) choose an instance type
+	Different types of instances:
+		general purpose
+		CPU optimised
+		memory optimised
+		storage optimised
+		GPU
+3) Configure instance details
+   count, network details , IAM role , User data 
+4) Add storage
+5) Add Tags
+6) Security group ( server level firewall )
+7) Review and  Launch (edit ec2 instance config if required)
+8) launch 
+9) Select existing or new key pair 
+10) Finally launch instance
+
+

@@ -1,0 +1,6 @@
+Service:
+	Service is a kubernetes resource which is used to expose the application to the external world.
+	There are different types of services available 
+	1)cluster ip:- it is for internal cluster 
+	2)NodePort:- if you expose the application with this type we should have worker node ip adresses.
+	3)loadbalancer

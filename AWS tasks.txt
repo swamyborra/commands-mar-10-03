@@ -1,0 +1,162 @@
+26-10-21
+
+tasks:
+1) how to upgrade my ec2 instance resources such as CPU, RAM
+  select instance > Instance state > Stop instance > Actions > Instance settings > change instance type > 
+  choose instance type(t3.medium) > apply > then start instance> verify with free -m & lscpu commands
+
+2) your are not able to login ec2 instances. What could be the reason?
+  Connection problems and errors
+Common causes for connection issues
+Error connecting to your instance: Connection timed out
+Error: unable to load key ... Expecting: ANY PRIVATE KEY
+Error: User key not recognized by server
+Error: Permission denied or connection closed by [instance] port 22
+Error: Unprotected private key file
+Error: Private key must begin with "-----BEGIN RSA PRIVATE KEY-----" and end with "-----END RSA 
+PRIVATE KEY-----"
+Error: Server refused our key or No supported authentication methods available
+Cannot ping instance
+Error: Server unexpectedly closed network connection
+Error: Host key validation failed for EC2 Instance Connect
+
+3) how to create snapshot automation
+Two methods:
+1.By cloud watch
+*****************
+select Management & Governance(CloudWatch) service> Events> Rules> create rule>Event Source > Choose Schedule > 
+Choose Fixed rate of e.g. 5min > Cron expression and specify a cron expression (for example, every 15 minutes Monday through Friday, 
+starting at the current time)
+TargeAdd target > EC2 CreateSnapshot API call > type volume id of targeted amazon EBS volume
+Create a new role for this specific resource > Configure details
+>Rule definition, type a name and description for the rule > Choose Create rule
+
+For more information
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/TakeScheduledSnapshot.html
+
+2.Lifecycle manager or Data Lifecycle manager(DLM)
+**************************************************
+  Elastic Block Store(Lifecycle manager)> Create lifecycle policy> Select policy type(EBS snapshot policy)
+  >specify settings, choose Target resource types,add Target resource tags then add, add Description
+  >next >specify Schedule details> review policy> Create policy
+------------------------------------------------------------------------------------------------------------------
+27-10-21
+
+task:
+1) how to increase existing root filesystem in linux operating system
+			{or}
+   how to resize/increase  file system(EBS volume) in linux ec2-instance?
+
+step1: modify the volume size from aws console
+step2: extend the file system by logging into ec2 through putty
+	 run command
+	>resize2fs or xfs_growfs /dev/xvdf(block device name)
+(both are used in different linux distribution. If  you are getting error, try the other one)
+step3: check with df -h or lsblk
+
+ex:
+growpart /dev/xvda 1 : to extend the partions
+
+[root@ip-172-31-4-141 ~]# lsblk
+NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+xvda    202:0    0  80G  0 disk
+└─xvda1 202:1    0   8G  0 part /
+xvdb    202:16   0   9G  0 disk /app
+xvdf    202:80   0  17G  0 disk /sample
+[root@ip-172-31-4-141 ~]# growpart /dev/xvda 1
+CHANGED: partition=1 start=4096 old: size=16773087 end=16777183 new: size=167768031 end=167772127
+[root@ip-172-31-4-141 ~]# lsblk
+NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+xvda    202:0    0  80G  0 disk
+└─xvda1 202:1    0  80G  0 part /
+xvdb    202:16   0   9G  0 disk /app
+xvdf    202:80   0  17G  0 disk /sample
+
+2) install aws cli(command line interface) on ubuntu and centos
+Launched instance by using ubuntu > custom security group > select instance and connect through AWS or putty
+apt-get update
+apt-get install awscli
+press y enter
+aws --version
+aws configure
+access key
+secret key
+region
+text or table or json format
+
+Centos:
+yum update -y
+yum install awscli -y
+aws --version
+aws configure
+access key
+secret key
+region
+text or table or json format
+--------------------------------------------------------------------------------------------------------
+28/10/21
+
+1) how to create ec2 instance
+aws ec2 describe-key-pairs: It displays existing key pairs
+
+more info
+search for aws cli create key pair
+https://docs.aws.amazon.com/cli/latest/userguide/cli-services-ec2-keypairs.html
+
+ex:
+aws ec2 run-instances --image-id ami-xxxxxxxx --count 1 --instance-type t2.micro --key-name 
+MyKeyPair --security-group-ids sg-903004f8 --subnet-id subnet-6e7f829e
+
+2) stop the above ec2 instance(just created by you)
+
+3) start the above ec2 instance
+
+4) you have to find out instance id and create ami for that(write a shellscript)
+first find out existing ami for each instance and make sure that only latest two ami's are available.
+
+
+5) for an ec2 instance find out how many disks are available? and each disk create a snapshot 
+latest 2 snapshots are available and delete older one.
+
+
+6) how to mount s3 bucket 
+
+https://cloudkul.com/blog/mounting-s3-bucket-linux-ec2-instance/
+
+---------------------------------------------------------------------------------------------------
+29/10/21
+
+tasks
+
+1. Ec2 is it global or region
+2. S3 is it global or region level
+3. How to make single sign on for multiple accounts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

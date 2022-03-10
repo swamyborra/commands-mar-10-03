@@ -1,0 +1,291 @@
+Advanced commands / text processing tools:
+-----------------------------------------------
+grep -- we can search any keywords from file or command output
+find --  by using this command we can search files and folders based on size,location,time
+         user,type,format
+echo -- to print any message to the screen 
+sort -- this command used to sort any command/file output in ascending/descending order
+uniq-- this command used to remove adjacent duplicates
+wc -- we can count no. of lines from any output
+head -- from any command or file output we can get first n no. of lines
+tail -- from any command or file output we can get last n no. of lines
+more -- to view any output page wise in forward direction 
+	(can view only next page)
+less -- to view any output page wise in forward and backward direction
+	(can view next page and previous page)
+	space button have to use to view from page to page
+awk --- this command used extract any keyword from given output
+	ex: free -m | grep -i mem | awk -F " " '{print $7}'
+
+sed ---it is search and replace command in any output
+xargs ---it combines multiple rows to single row
+cut -- this command used extract any keyword from given output
+	ex: free -m | grep -i mem | cut -d " " -f 7
+std out-- 
+std error--
+
+sed tasks:
+--------
+>how to replace only from 5th line to 10th line
+>how to delete empty lines
+>replace the 2nd occurance only in every line
+
+awk tasks:
+------------------
+>get last but one word in a line
+>count no of characters for a last word in a line
+---------------------------------------------------------------
+12-10-2021
+
+>how to make my filesystem permanently
+>how to increase cpu and ram in linux ec2-instance
+>how to increase my file system in linux ec2-instance
+
+--------------------------------------------------------------------
+13/10/2021
+
+history: displays what commands we used
+
+shell script/program:
+---------------------
+>A sequence/group of linux commands adding into file and execute in one shot is called as shell program
+>our script  can contains programming features also such as control statement, loops, functions, array
+(because of this programming features we can write script very easily for complex requirements)
+>script is also used for automation task
+
+use case:
+---------
+for reuseablitiy
+bulk task based on conditions
+
+how to create shell script
+--------------------------
+>create a file with .sh extension and with series of commands inside that and save it
+>provide execution permission 
+ex: chmod +x scriptname
+
+how to run a shell script
+---------------------------
+If we are in same folder where shell script is there
+./sample.sh
+sh sample.sh
+
+If we are in another folder:
+/root/sample.sh
+sh /root/sample.sh
+
+Variable:
+---------------
+way1: local variable
+-----
+cat test.sh
+#!/bin/bash
+dilip=amar
+echo "hello everyone this is $dilip"
+echo "$dilip is from gajwel"
+echo "$dilip is in siddipet"
+echo "hii dilip 203"
+cal
+note:
+here dilip is the variable name
+any word/number after $ is the variable
+
+./test.sh
+output:
+hello everyone this is amar
+amar is from gajwel
+amar is in siddipet
+hii dilip 203
+    October 2021
+Su Mo Tu We Th Fr Sa
+                1  2
+ 3  4  5  6  7  8  9
+10 11 12 13 14 15 16
+17 18 19 20 21 22 23
+24 25 26 27 28 29 30
+31
+
+way2: read variable
+-------
+cat sample.sh
+#!/bin/bash
+echo "please provide trainer name"
+read dilip (varaible)
+echo "hello every one $dilip"
+echo "this is $dilip"
+echo "$dilip 20"
+date
+ls -l
+
+##sh ./sample.sh
+please provide trainer name
+vamshikrishna
+
+output:
+hello every one vamshikrishna
+this is vamshikrishna
+vamshikrishna 20
+Wed Oct 13 16:55:14 UTC 2021
+total 8
+drwxr-xr-x 3 root root 4096 Oct 13 16:12 ramesh
+-rwxr--r-- 1 root root  138 Oct 13 16:52 sample.sh
+
+way3: positional parameters
+-----
+cat sample.sh
+#!/bin/bash
+echo "hello every one $1"
+echo "this is $1"
+echo "$1 20"
+echo "from $2"
+
+./sample.sh ankith
+output:
+hello every one ankith
+this is ankith
+ankith 20
+from
+
+./sample.sh krishna gajwel
+output:
+hello every one krishna
+this is krishna
+krishna 20
+from gajwel
+
+------
+output variable: command outputs , we can  store into variable to perform some action.
+#!/bin/bash
+variablename=`command`
+variablename1=${command}
+echo $variablename
+
+System Variable (or Environment Variable):
+1) Global Variable: If you define a variable entry in /etc/profile then that variable is available for entire system 
+		    for all users.
+2) User Variable: If you define a variable entry in .bash_profile ( every user has their own bash profile
+		  in their home directory) then that variable is available for that particular user. 
+
+
+---------
+IF condition: if statement will take one condition and if it is true then statement (set of commands)will be executed. if it is false ELSE statement will be executed.
+
+if [ $user_id = 0 ]
+then
+echo "my username is root"
+else
+echo "my username is non root"
+fi
+
+
+------
+TASK:
+if switches
+
+https://www.shell-tips.com/bash/if-statement/
+
+>the given file is empty or not
+>the given input is directory or not
+>the given input is empty directory or not
+>how to make sure that argument is passed
+>the given file is readble by me or not
+>the given file is writeable by me or not
+-------------------------------------------------
+
+
+Tasks:
+How many positional parameters i can pass 
+how to call 10th positional parameter
+how to call script name inside shell script
+
+
+
+
+cat applicationfile
+-------------------------------------------
+FOR loop:             20/10/2021
+if you need any set of statememts to be repeated n no. of times based on condition you given
+
+for variablename in "<conditions>"
+do
+set of statements
+done
+-------------------------------------------
+sed task:
+please comment (#) from 10th line to 20th line (with sed and vi editor)
+
+FRUIT: banana apple mango
+COLOUR: white red yellow
+FLOWER: rose jasmine
+
+
+
+./shell.sh banana red
+
+FRUIT: banana
+COLOUR: red
+
+./shell.sh banana apple red
+
+FRUIT: banana apple
+COLOUR: red
+
+write a shell script to get output like this?
+
+----------------------------------------------------------
+21/10/21
+
+cat file1
+fruit: banana apple mango
+colur: red yellow white
+flower: sunflower rose lotus
+
+cat file2.sh
+#!/bin/bash
+rm -rf output
+for i in `echo $*`
+do
+component=`cat file1|grep $i|awk -F ":" '{print $1}'`
+touch output
+cat output|grep $component >/dev/null 2>/dev/null
+if [ $? = 0 ]
+then
+duplicate=`cat output|grep $component`
+sed -i "s/$duplicate/$duplicate \ $i/gi" output
+else
+echo "$component: $i" >> output
+fi
+done
+cat output
+
+./file2.sh banana apple red
+fruit: banana  apple
+colur: red
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

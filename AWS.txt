@@ -1,0 +1,304 @@
+Cloud computing:
+>Storing data/applications on remote servers
+>Processing data/applications from servers
+>Accessing data/applications via internet
+
+IAAS- Infrastructure as a service
+PAAS- Platform as a service
+SAAS- Software as a service
+
+EC2
+EFS
+S3
+VPC
+IAM
+CLOUD WATCH
+AUTO SCALING
+LOAD BALANCER
+ROUTE 53
+SNS
+EBS
+ECR
+
+ec2: elastic cloud computing
+
+ec2 service types:
+ondemand : no commitment from customer ( any number of days ican use ec2)
+           costly when compare to other types.
+reserved: here its lease agrement (1 years, 2 years) 
+spot : no commitment from anybody ( cheep cost) 
+
+
+
+Steps involved in EC2 instance creation:
+
+login to aws dashboard >> services >> choose ec2 >> launch instance
+
+1) choose AMI ( amazon machine image i.e iso image) 
+
+2) choose an instance type
+	Different types of instances:
+		general purpose
+		CPU optimised
+		memory optimised
+		storage optimised
+		GPU
+3) Configure instance details
+   count, network details , IAM role , User data 
+4) Add storage
+5) Add Tags
+6) Security group ( server level firewall )
+7) Review and  Launch (edit ec2 instance config if required)
+8) launch 
+9) Select existing or new key pair 
+10) Finally launch instance
+
+------------------------------------------------------------
+26-10-21
+
+>In aws security groups is called as firewall
+
+Location terminologies in AWS:
+1) region: Geographical location
+2) availability zone: Within the region the data centers are called as availability zones
+
+Types of storages available in AWS:
+
+EBS: Elastic Block Store
+EFS: Elastic File system
+S3:  simple storage and service
+
+
+EBS: Elastic Block Store
+>This is the default storage which comes with ec2-instance
+>In terms of AWS, EBS disk is called as volume
+
+How to take backup (storage)/how to take snapshot?
+---------------------------- 
+>Elastic Block Store(snapshots)>choose volume, description, add tag> create snapshot: this is create a snapshot
+>To view what is there in snapshot
+select snapshot> actions> create volume> choose(volume  type, size,availability zone, add tag)
+then select volume> actions> attach volume> select instance > attach volume
+
+note: 
+>While we backup the disk (size of the new disk must not be less than the disk which we are backuped )
+>Copy the data if we needed
+-----------------------------------
+27-10-2021
+
+S3: (simple storage and service)
+>In EBS & EFS, we can't access data through aws console
+(here we can access the data, by attaching disk to ec2-instance)
+>In S3 we can access data through console or through ec2-instance
+
+1. Through console:
+---------------
+click on S3 service > create bucket > type bucket name(name should be uniq) > create bucket
+
+2. Through ec2-instance:
+-----------------------
+To access data through ec2-instance, we need security Credentials and awscil (application)
+
+>To get credentials
+ Dilip kumar(username)>My Security Credentials>Access keys>Create New Access Key>Download Key File
+
+>awscil: is an application
+aws --version: it shows whether awscil is installed or not
+
+[root@ip-172-31-14-50 ~]# aws configure
+AWS Access Key ID [None]: AKIAQTBFGGDEX2GCGZUZ
+AWS Secret Access Key [None]: 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
+Default region name [None]: ap-south-1
+Default output format [None]: text/table/json (if nothing is mentioned, json will take it as a default)
+
+aws ec2 describe-instances = it displays all ec2-instances
+
+aws ec2 help = it shows all commands
+aws ec2 describe-instances help = it shows all options related to this command
+aws s3 help = it shows all commands
+
+
+-----------------------------------------------------------------------------------------------------
+28/10/21
+
+Through ec2 instance:
+>aws s3 ls: it shows how many buckets are there in s3 storage
+ex: aws s3 ls
+2021-10-28 08:50:29 bucketdilip00
+
+>aws s3 mb s3://bucketname--->creating a bucket through ec2 instance
+ex: aws s3 mb s3://dilipamar
+make_bucket: dilipamar
+[root@ip-172-31-34-120 ~]# aws s3 ls
+2021-10-28 08:50:29 bucketdilip00
+2021-10-28 09:16:14 dilipamar
+
+>aws s3 ls s3://bucketname---> it will list what is there in bucket
+ex:aws s3 ls s3://bucketdilip00
+2021-10-28 09:20:03     370382 Screenshot (45).png
+
+>aws s3 cp file1 s3://bucketdilip00--> copying the file1 from current directory to bucketdilip00
+upload: ./file1 to s3://bucketdilip00/file1
+>aws s3 cp /tmp/file4 s3://bucketdilip00--> copying the file4 from tmp directory to bucketdilip00
+upload: ../tmp/file4 to s3://bucketdilip00/file4
+--------------------------------------------------------------------
+29/10/21
+
+S3 : simple storage service
+>It is shared storage we can access it from any no of instances in one shot
+>It is a object based storage
+
+S3 properties 
+--------------
+versioning: we can maitain 2 version for a file, and deleted files also will be avaiable untill u delete permanenetly.
+ httpd.conf(previous)
+ httpd.conf(current)
+
+ deleted wont be deleted  ,    file1(del) 
+
+tags: identification of objects and based on that we can write down life cycle policies
+encryption: if u enable this data transmission will be in encrypted format while uploading and downloading from/to s bucket.
+Requester pays: for transactions such as uploading , downloading , requester account will be charged.
+Static web hosting: if required we can host a basic or static (kind of notice board) 
+Accelerator: for huge data uploads and downloads , aws will allow  max speed .
+Server access logging : who is accessing your s3 bucket
+Event notification: for events such as deletion/upload/download we will be notified
+object lock: i can lock my objects to do not delete.
+
+storage classes:
+standard class: default 
+standard in frequent: frequently used data 
+glacier: archieved storage
+
+ 
+
+file
+file(1)
+file(2)
+
+-------------------------------------------------------------------------------------
+01-11-2021
+
+IAM: identity Access Management
+     To provide access to AWS services we use IAM service.
+      there  are 2 types of authentication mechanisms
+      
+	IAM user				IAM role
+      user gets credentials                  No credentials
+     (user name,password,access key, 
+      secret key)
+     For human beings we give IAM user	      One AWS service would like to
+     to get AWS services		     manage other AWS services
+
+
+Types of network:
+1) Public network: It is provided by internet provider
+2) Private network: It is created by your internal network team or devices
+                    router or hub
+
+IP Classes:
+Class A ( 0 - 127 )  in this 10 series is the private range
+Class B ( 128 - 191 ) in this 172 series is the private range
+Class C ( 192 - 223 ) in this 192 series is private range.
+Class D ( 224  - 239 ) 
+Class E (240 - 255 )  for future purposes
+
+advantages of private network:
+security
+lack of public ip addresses 
+cost cutting
+
+
+how to create a private network in aws:
+1) vpc (virtual private cloud) where we provide the network range
+2) route table: it comes with vpc and it is the road map for your road network
+3) subnet: to reproduce the no. of ip addresses from vpc we use subnet, it is an algorithm
+4) internet gateway: it is an interface which allows traffic from your internet to public subnet
+
+
+public subnet and private subnet:
+public subnet means where internet gateway attached to it is called public subnet.
+private subnet means where nat gateway attached to it is called as private subnet.
+
+VPC peering:
+if you have multiple vpc's either in single aws account or mltiple aws account, to enable the communication
+between them we use VPC peering
+
+VPN:(virtual private network)
+to enable the communication between your vpc and your office/data center/on premises private network we 
+use this.
+
+
+two separate subnets for public and private servers: 
+Create one vpc with 10.0.0.0/16 
+create two subnets, one is publicsubnet (10.0.0.0/24) and other is private subnet (10.0.105.0/24)
+create one more routetable and associate with private subnet
+associate public subnet with default routetable 
+create internetgateway and attach with first(default) routetable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
